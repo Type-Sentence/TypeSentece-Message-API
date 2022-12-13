@@ -1,5 +1,12 @@
-import { io } from "../index";
+// import { io } from "../index";
+import SavedMessage from "../database/schemas/messageSchema";
 
-io.on("connect", (socket) => {
-    console.log(socket.id);
-})
+SavedMessage.findOne({ id: 1 })
+
+// io.on("connection", (socket) => {
+//     console.log(socket.id);
+
+//     socket.on("new_message", (content: string) => {
+//         console.log(content);
+//     })
+// })
