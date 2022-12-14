@@ -1,5 +1,5 @@
 //Express
-import express, { Request, Response } from "express";
+import express, { NextFunction, Request, Response } from "express";
 import routers from "./routers";
 
 //Cookie and sessions
@@ -14,14 +14,15 @@ import cors from "cors";
 //Socket.io
 import http from "http";
 import { Server } from "socket.io";
+import "./database";
 
-require("./database");
+
 config();
 
 const app = express();
 const server = http.createServer(app);
 
-app.use(express.json);
+app.use(express.json());
 app.use(express.urlencoded({
     extended: false,
 }))
@@ -50,6 +51,11 @@ app.use(session({
 }))
 
 app.use(cookieParser())
+
+app.use((req: Request, res: Response, next: NextFunction) => {
+    console.log(`${req.method}: ${req.url}`)
+    next()
+})
 
 app.use("/api", routers);
 
