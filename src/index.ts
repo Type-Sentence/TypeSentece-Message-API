@@ -32,10 +32,18 @@ app.use(cors({
     credentials: true,
 }))
 
-export const io = new Server(server, {
+const io = new Server(server, {
     cors: {
         origin: ["http://localhost:3000"]
     }
+})
+
+io.on("connection", (socket) => {
+    console.log(socket.id);
+
+    socket.on("new_message", (content: string) => {
+        console.log(content);
+    })
 })
 
 app.use(session({
@@ -52,10 +60,10 @@ app.use(session({
 
 app.use(cookieParser())
 
-app.use((req: Request, res: Response, next: NextFunction) => {
-    console.log(`${req.method}: ${req.url}`)
-    next()
-})
+// app.use((req: Request, res: Response, next: NextFunction) => {
+//     console.log(`${req.method}: ${req.url}`)
+//     next()
+// })
 
 app.use("/api", routers);
 
