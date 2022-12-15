@@ -28,13 +28,14 @@ app.use(express.urlencoded({
 }))
 
 app.use(cors({
-    origin: ["http://localhost:3000/"],
+    origin: ["http://localhost:3000"],
     credentials: true,
 }))
 
 const io = new Server(server, {
     cors: {
-        origin: ["http://localhost:3000"]
+        origin: ["http://localhost:3000"],
+        credentials: true,
     }
 })
 
@@ -67,4 +68,4 @@ app.use(cookieParser())
 
 app.use("/api", routers);
 
-app.listen(3001, () => console.log("App listening on port http://localhost:3001/"))
+server.listen(3001, () => console.log("App listening on port http://localhost:3001/"))
