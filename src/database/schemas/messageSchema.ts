@@ -1,12 +1,13 @@
 import mongoose from "mongoose";
-import { Message, MessageAuthor } from "../../interfaces/messagesInterafaces";
+import { Message } from "../../interfaces/messagesInterafaces";
+import { User } from "../../interfaces/userInterafaces";
 
 const reqString = {
     type: mongoose.SchemaTypes.String,
     required: true,
 }
 
-const Author = new mongoose.Schema<MessageAuthor>({
+const Author = new mongoose.Schema<User>({
     id: reqString,
     username: reqString,
     discriminator: reqString,
