@@ -15,6 +15,7 @@ import cors from "cors";
 import http from "http";
 import { Server } from "socket.io";
 import "./database";
+import passport from "passport";
 
 
 config();
@@ -65,6 +66,9 @@ app.use(cookieParser())
 //     console.log(`${req.method}: ${req.url}`)
 //     next()
 // })
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/api", routers);
 
