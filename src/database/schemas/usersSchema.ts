@@ -6,14 +6,19 @@ const reqStr = {
     required: true,
 }
 
-const UserSchema = new mongoose.Schema<User>({
-    username: reqStr,
-    discriminator: reqStr,
+export const UserSchema = new mongoose.Schema<User>({
     id: {
         type: mongoose.SchemaTypes.String,
         required: true,
         unique: true,
     },
+    email: {
+        type: mongoose.SchemaTypes.String,
+        required: true,
+        unique: true,
+    },
+    username: reqStr,
+    discriminator: reqStr,
     avatar: reqStr,
     banner: reqStr,
 })

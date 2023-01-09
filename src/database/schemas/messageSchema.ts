@@ -1,19 +1,12 @@
 import mongoose from "mongoose";
 import { Message } from "../../interfaces/messagesInterafaces";
 import { User } from "../../interfaces/userInterafaces";
+import { UserSchema } from "./usersSchema";
 
 const reqString = {
     type: mongoose.SchemaTypes.String,
     required: true,
 }
-
-const Author = new mongoose.Schema<User>({
-    id: reqString,
-    username: reqString,
-    discriminator: reqString,
-    avatar: reqString,
-    banner: reqString
-})
 
 const MessageSchema = new mongoose.Schema<Message>({
     grupId: {
@@ -24,7 +17,7 @@ const MessageSchema = new mongoose.Schema<Message>({
     id: reqString,
     content: reqString,
     author: {
-        type: Author,
+        type: UserSchema,
         required: true,
     }
 })
