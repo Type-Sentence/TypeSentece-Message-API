@@ -1,5 +1,9 @@
-import { Request, Response, Router } from "express";
+import { Request, Response, Router, raw } from "express";
 import passport from "passport";
+import { hashPassowrd } from "../../helpers/hashingController";
+import Users from "../../database/schemas/usersSchema";
+import { dateToSnowFlakes, generateSnowFlakes, snowFlakesToDate } from "../../helpers/auth/generateUserId";
+
 const router = Router();
 
 router.post("/login", passport.authenticate("local"), (req: Request, res: Response) => {
@@ -7,14 +11,32 @@ router.post("/login", passport.authenticate("local"), (req: Request, res: Respon
     res.status(200).send({ msg: "Logged in" })
 })
 
-router.post("/register", (req: Request, res: Response) => {
-    const { email } = req.body;
+router.post("/register", async (req: Request, res: Response) => {
+    const { email, username } = req.body;
 
-    if (!email) return res.status(400).send({ msg: "No email has been entered" })
+    if (!email || !req.body.password || !username) return res.status(400).send({ msg: "Insert the nubmer of argument request (email, password, username)" })
 
-    const emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/g
+    try {
+        const userDb = await Users.findOne({ email });
 
-    if (!emailRegex.test(email)) return res.status(400).send({ msg: "Insert a valid RFC2822 email" })
+        if (userDb) {
+            return res.status(403).send({ msg: "email already in use" })
+        } else {
+            const password = hashPassowrd(req.body.password);
+
+            const avatar = "https://static.crunchyroll.com/assets/avatar/170x170/100008-spy-x-family-anya-1.p";
+            const banner = "https://static.crunchyroll.com/assets/wallpaper/720x180/0416-tokyo-revengers-kv.png"
+
+            const id = generateSnowFlakes();
+
+            const newUser = await Users.create({ id, email, password, username, avatar, banner, discriminator: "#0001" })
+
+            return res.status(201).send(newUser);
+        }
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send(err);
+    }
 })
 
 export default router;
