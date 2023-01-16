@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Model } from "mongoose";
 import { User } from "../../interfaces/userInterafaces";
 
 const reqStr = {
@@ -17,6 +17,7 @@ export const UserSchema = new mongoose.Schema<User>({
         required: true,
         unique: true,
     },
+    password: reqStr,
     username: reqStr,
     discriminator: reqStr,
     tag: reqStr,
@@ -24,4 +25,4 @@ export const UserSchema = new mongoose.Schema<User>({
     banner: reqStr,
 })
 
-export default mongoose.model("Users", UserSchema)
+export default mongoose.model<User>("Users", UserSchema)

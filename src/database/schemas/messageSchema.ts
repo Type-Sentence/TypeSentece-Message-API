@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 import { Message } from "../../interfaces/messagesInterafaces";
 import { User } from "../../interfaces/userInterafaces";
 import { UserSchema } from "./usersSchema";
@@ -8,7 +8,7 @@ const reqString = {
     required: true,
 }
 
-const MessageSchema = new mongoose.Schema<Message>({
+const MessageSchema: Schema = new mongoose.Schema<Message>({
     grupId: {
         type: mongoose.SchemaTypes.String,
         required: true,
