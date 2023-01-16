@@ -19,6 +19,7 @@ export const UserSchema = new mongoose.Schema<User>({
     },
     username: reqStr,
     discriminator: reqStr,
+    tag: reqStr,
     avatar: reqStr,
     banner: reqStr,
 })
