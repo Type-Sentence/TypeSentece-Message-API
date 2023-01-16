@@ -16,6 +16,7 @@ import http from "http";
 import { Server } from "socket.io";
 import "./database";
 import passport from "passport";
+import "./strategies/local";
 
 
 config();
