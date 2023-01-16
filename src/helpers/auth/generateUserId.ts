@@ -17,12 +17,10 @@ export const dateToSnowFlakes = (date: number | Date) => {
     const epoch = 1420070400000 //Discord Epoch Thursday 1 January 2015 00:00:00
 
     if (isDate(date)) {
-        console.log("Is Date")
         const milliseconds = BigInt(date.getTime() - epoch);
         const snowflakes = Number(milliseconds << 22n);
         return snowflakes;
     } else if (typeof date === "number") {
-        console.log("Is Nubmer")
         const milliseconds = BigInt(date - epoch);
         const snowflakes = Number(milliseconds << 22n);
         return snowflakes;
