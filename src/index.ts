@@ -17,6 +17,7 @@ import { Server } from "socket.io";
 import "./database";
 import passport from "passport";
 import "./strategies/local";
+import initListeners from "./gateway"
 
 
 config();
@@ -41,13 +42,15 @@ const io = new Server(server, {
     }
 })
 
-io.on("connection", (socket) => {
-    console.log(socket.id);
+initListeners(io);
 
-    socket.on("new_message", (content: string) => {
-        console.log(content);
-    })
-})
+// io.on("connection", (socket) => {
+//     console.log(socket.id);
+
+//     socket.on("new_message", (content: string) => {
+//         console.log(content);
+//     })
+// })
 
 app.use(session({
     secret: process.env.SESSION_SEECRET!,
