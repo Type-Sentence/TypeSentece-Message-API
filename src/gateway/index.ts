@@ -1,8 +1,8 @@
 import fs from "fs"
-import { Server } from "http";
+import { Server } from "socket.io";
 import { DefaultEventsMap } from "socket.io/dist/typed-events";
 
-const initListeners = (io: Server) => {
+const initListeners = (io: Server<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap>) => {
     io.on("connection", (socket) => {
         const eventFolder = fs.readdirSync("./events");
 
