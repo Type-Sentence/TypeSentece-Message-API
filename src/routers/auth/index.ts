@@ -14,7 +14,7 @@ router.post("/login", passport.authenticate("local"), (req: Request, res: Respon
 })
 
 router.post("/register", async (req: Request, res: Response) => {
-    const { email, username } = req.body;
+    const { email, username, verifyPassword } = req.body;
 
     if (!email || !req.body.password || !username) return res.status(400).send({ msg: "Insert the nubmer of argument request (email, password, username)" })
 
@@ -24,6 +24,9 @@ router.post("/register", async (req: Request, res: Response) => {
         if (userDb) {
             return res.status(403).send({ msg: "email already in use" })
         } else {
+
+            if (req.body.password !== verifyPassword) return res.status(400).send({ msg: "The passwords doesn't match" })
+
             const password = hashPassowrd(req.body.password);
 
             const avatar = "https://static.crunchyroll.com/assets/avatar/170x170/100008-spy-x-family-anya-1.p";
