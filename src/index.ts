@@ -44,14 +44,6 @@ const io = new Server(server, {
 
 initListeners(io);
 
-// io.on("connection", (socket) => {
-//     console.log(socket.id);
-
-//     socket.on("new_message", (content: string) => {
-//         console.log(content);
-//     })
-// })
-
 app.use(session({
     secret: process.env.SESSION_SEECRET!,
     resave: false,
