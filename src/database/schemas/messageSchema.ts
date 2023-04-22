@@ -1,7 +1,8 @@
 import mongoose, { Schema } from "mongoose";
-import { Message } from "../../interfaces/messagesInterafaces";
-import { User } from "../../interfaces/userInterafaces";
+import { IMessage } from "../../interfaces/messagesInterafaces";
+import { IUserWithCredentials } from "../../interfaces/userInterafaces";
 import { UserSchema } from "./usersSchema";
+import { Message } from "../../models/Message";
 
 const reqString = {
     type: mongoose.SchemaTypes.String,
@@ -20,7 +21,6 @@ const MessageSchema: Schema = new mongoose.Schema<Message>({
         type: UserSchema,
         required: true,
     }
-
 })
 
 export default mongoose.model("SavedMessage", MessageSchema);

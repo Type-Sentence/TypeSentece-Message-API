@@ -1,16 +1,16 @@
 import { Request, Response } from "express";
 import Users from "../../database/schemas/usersSchema";
-import { User } from "../../interfaces/userInterafaces";
+import { IUserWithCredentials } from "../../interfaces/userInterafaces";
 
 export const generateDiscriminator = async (req: Request, res: Response, username: string) => {
     try {
-        const users = await Users.find<User>({ username })  // Return an array of users with that specified username, or return an empty array
+        const users = await Users.find<IUserWithCredentials>({ username })  // Return an array of users with that specified username, or return an empty array
 
         if (users.length <= 0) return "#0001";
 
         if (users) {
             console.log(users);
-            const lastCreatedUsers: User = users[users.length - 1];
+            const lastCreatedUsers: IUserWithCredentials = users[users.length - 1];
 
             const lastDiscriminator = lastCreatedUsers.discriminator;
 

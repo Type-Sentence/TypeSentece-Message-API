@@ -1,9 +1,9 @@
-import { BaseUser } from "./userInterafaces";
+import { IUser } from "./userInterafaces";
 
-export interface Message {
+export interface IMessage {
     grupId?: string;
     id: string;
     content: string;
-    author: BaseUser;
+    author: IUser;
     createdAt: number;
 }

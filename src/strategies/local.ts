@@ -2,7 +2,7 @@ import passport from "passport";
 import { Strategy } from "passport-local";
 import Users from "../database/schemas/usersSchema";
 import { comparePassword } from "../helpers/hashingController";
-import { User } from "../interfaces/userInterafaces";
+import { IUserWithCredentials } from "../interfaces/userInterafaces";
 
 passport.serializeUser((user: any, done) => {
     console.log("Serializing User...")
@@ -14,7 +14,7 @@ passport.deserializeUser(async (id: string, done) => {
     console.log(id);
 
     try {
-        const userDb = await Users.findOne<User>({ id });
+        const userDb = await Users.findOne<IUserWithCredentials>({ id });
 
         if (!userDb) throw new Error("User not found");
         console.log(userDb);
@@ -37,7 +37,7 @@ passport.use(
             try {
                 if (!email || !password) throw new Error("Missing argumentes, insert email and password")
 
-                const userDb = await Users.findOne<User>({ email })
+                const userDb = await Users.findOne<IUserWithCredentials>({ email })
 
                 if (!userDb) throw new Error("User doesn't exist, try another email")
 

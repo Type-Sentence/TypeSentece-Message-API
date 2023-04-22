@@ -4,7 +4,7 @@ import { hashPassowrd } from "../../helpers/hashingController";
 import Users from "../../database/schemas/usersSchema";
 import { dateToSnowFlakes, generateSnowFlakes, snowFlakesToDate } from "../../helpers/auth/generateUserId";
 import { generateDiscriminator } from "../../helpers/auth/generateDiscriminator";
-import { User } from "../../interfaces/userInterafaces";
+import { IUserWithCredentials } from "../../interfaces/userInterafaces";
 
 const router = Router();
 
@@ -36,7 +36,7 @@ router.post("/register", async (req: Request, res: Response) => {
             const discriminator = await generateDiscriminator(req, res, username);
             const tag = username + discriminator;
 
-            const newUser: User = await Users.create({ id, email, password, username, avatar, banner, discriminator, tag })
+            const newUser: IUserWithCredentials = await Users.create({ id, email, password, username, avatar, banner, discriminator, tag })
 
             return res.status(201).send(newUser);
         }

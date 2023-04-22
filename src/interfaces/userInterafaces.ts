@@ -1,15 +1,15 @@
 import { Document } from "mongoose";
 
-export interface User extends BaseUser {
+export interface IUserWithCredentials extends IUser {
     email: string;
     password: string;
 }
 
-export interface BaseUser extends Document {
+export interface IUser {
     id: string;
     username: string;
     discriminator: string;
     tag: string;
     avatar: string;
-    banner?: string;
+    banner: string;
 }

@@ -1,12 +1,12 @@
 import mongoose, { Model } from "mongoose";
-import { User } from "../../interfaces/userInterafaces";
+import { IUserWithCredentials } from "../../interfaces/userInterafaces";
 
 const reqStr = {
     type: mongoose.SchemaTypes.String,
     required: true,
 }
 
-export const UserSchema = new mongoose.Schema<User>({
+export const UserSchema = new mongoose.Schema<IUserWithCredentials>({
     id: {
         type: mongoose.SchemaTypes.String,
         required: true,
@@ -25,4 +25,4 @@ export const UserSchema = new mongoose.Schema<User>({
     banner: reqStr,
 })
 
-export default mongoose.model<User>("Users", UserSchema)
+export default mongoose.model<IUserWithCredentials>("Users", UserSchema)
