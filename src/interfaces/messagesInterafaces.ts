@@ -1,8 +1,9 @@
-import { User } from "./userInterafaces";
+import { BaseUser } from "./userInterafaces";
 
 export interface Message {
     grupId?: string;
     id: string;
     content: string;
-    author: User;
+    author: BaseUser;
+    createdAt: number;
 }

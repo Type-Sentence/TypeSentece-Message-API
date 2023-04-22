@@ -3,6 +3,8 @@ const event: GatewayEvent = {
     name: "new_message",
     listener(content: string) {
         console.log(content);
+
+
     }
 };
 

@@ -20,6 +20,7 @@ const MessageSchema: Schema = new mongoose.Schema<Message>({
         type: UserSchema,
         required: true,
     }
+
 })
 
 export default mongoose.model("SavedMessage", MessageSchema);
