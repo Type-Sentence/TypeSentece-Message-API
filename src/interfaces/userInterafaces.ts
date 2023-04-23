@@ -9,7 +9,7 @@ export interface IUser {
     id: string;
     username: string;
     discriminator: string;
-    tag: string;
+    tag?: string;
     avatar: string;
     banner: string;
 }

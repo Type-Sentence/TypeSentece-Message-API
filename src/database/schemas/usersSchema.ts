@@ -1,5 +1,6 @@
 import mongoose, { Model } from "mongoose";
-import { IUserWithCredentials } from "../../interfaces/userInterafaces";
+import { BaseUser, UserWithCredentials } from "../../models/User";
+import { IUser, IUserWithCredentials } from "../../interfaces/userInterafaces";
 
 const reqStr = {
     type: mongoose.SchemaTypes.String,
@@ -23,6 +24,7 @@ export const UserSchema = new mongoose.Schema<IUserWithCredentials>({
     tag: reqStr,
     avatar: reqStr,
     banner: reqStr,
+
 })
 
-export default mongoose.model<IUserWithCredentials>("Users", UserSchema)
+export default mongoose.model<UserWithCredentials>("Users", UserSchema)
