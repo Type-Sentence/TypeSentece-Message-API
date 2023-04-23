@@ -1,13 +1,23 @@
 import mongoose, { Schema } from "mongoose";
-import { IMessage } from "../../interfaces/messagesInterafaces";
-import { IUserWithCredentials } from "../../interfaces/userInterafaces";
-import { UserSchema } from "./usersSchema";
+import { IUser } from "../../interfaces/userInterafaces";
 import { Message } from "../../models/Message";
 
 const reqString = {
     type: mongoose.SchemaTypes.String,
     required: true,
 }
+
+export const MessageUserSchema = new mongoose.Schema<IUser>({
+    id: {
+        type: mongoose.SchemaTypes.String,
+        required: true,
+    },
+    username: reqString,
+    discriminator: reqString,
+    tag: reqString,
+    avatar: reqString,
+    banner: reqString,
+})
 
 const MessageSchema: Schema = new mongoose.Schema<Message>({
     grupId: {
@@ -18,9 +28,10 @@ const MessageSchema: Schema = new mongoose.Schema<Message>({
     id: reqString,
     content: reqString,
     author: {
-        type: UserSchema,
+        type: MessageUserSchema,
         required: true,
-    }
+    },
+
 })
 
 export default mongoose.model("SavedMessage", MessageSchema);
