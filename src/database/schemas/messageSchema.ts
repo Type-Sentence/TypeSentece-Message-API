@@ -25,7 +25,10 @@ const MessageSchema: Schema = new mongoose.Schema<Message>({
         required: true,
         default: "0000"
     },
-    id: reqString,
+    id: {
+        type: mongoose.SchemaTypes.String,
+        required: true,
+    },
     content: reqString,
     author: {
         type: MessageUserSchema,

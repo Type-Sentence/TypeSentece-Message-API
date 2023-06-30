@@ -2,7 +2,7 @@ import { Request, Response, Router, raw } from "express";
 import passport from "passport";
 import { hashPassowrd } from "../../helpers/hashingController";
 import Users from "../../database/schemas/usersSchema";
-import { dateToSnowFlakes, generateSnowFlakes, snowFlakesToDate } from "../../helpers/auth/generateUserId";
+import { dateToSnowFlakes, generateSnowFlakes, snowFlakesToDate } from "../../helpers/generateSnowFlakes";
 import { generateDiscriminator } from "../../helpers/auth/generateDiscriminator";
 import { IUserWithCredentials } from "../../interfaces/userInterafaces";
 

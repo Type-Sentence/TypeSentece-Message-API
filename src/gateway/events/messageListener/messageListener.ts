@@ -5,6 +5,8 @@ import { GatewayMessageRequest } from "../../../interfaces/gateway/gatewayMessag
 import { IUser, IUserWithCredentials } from "../../../interfaces/userInterafaces";
 import { Message } from "../../../models/Message";
 import { BaseUser } from "../../../models/User";
+import { generateSnowFlakes } from "../../../helpers/generateSnowFlakes";
+import { IMessage } from "../../../interfaces/messagesInterafaces";
 
 const event: GatewayEvent = {
     name: "new_message",
@@ -26,7 +28,13 @@ const event: GatewayEvent = {
                 username: userDb.username
             }
             const messageAuthor = new BaseUser(messageAuthorData)
-            const message = new Message("0000", userDb?.id, request.content, messageAuthor)
+            const message = new Message("0000", generateSnowFlakes().toString(), request.content, messageAuthor)
+
+            const messageWithSameId = await SavedMessages.findOne<Message>({ id: message.id })
+            if (messageWithSameId) {
+                throw new Error("Multipe mesasge with same ID")
+            }
+
             const savedMessage = await SavedMessages.create<Message>({ ...message })
 
             console.log("🚀 ~ file: messageListener.ts:31 ~ listener ~ savedMessage:", savedMessage)
